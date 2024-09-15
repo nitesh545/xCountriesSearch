@@ -13,7 +13,7 @@ function App() {
                 .then((response) => response.json())
                 .then((data) => setFlags(data));
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     };
 
