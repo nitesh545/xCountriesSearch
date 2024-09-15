@@ -8,13 +8,10 @@ function App() {
     let [filteredFlags, setFilteredFlags] = useState([]);
 
     let fetchFlags = () => {
-        try {
-            fetch("https://restcountries.com/v3.1/all")
-                .then((response) => response.json())
-                .then((data) => setFlags(data));
-        } catch (err) {
-            console.error(err);
-        }
+        fetch("https://restcountries.com/v3.1/all")
+            .then((response) => response.json())
+            .then((data) => setFlags(data))
+            .catch((err) => console.error(err));
     };
 
     let searchFlags = () => {
