@@ -23,7 +23,7 @@ function App() {
                 .then((response) => response.json())
                 .then((data) => setFlags(data));
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     };
 
@@ -40,7 +40,7 @@ function App() {
     return (
         <div className="App">
             <input
-                type="search"
+                type="text"
                 onChange={(event) => {
                     setSearchText(event.target.value);
                     // showFilteredFlags();
@@ -68,7 +68,7 @@ function App() {
                                         verticalAlign: "middle",
                                     }}
                                 ></img>
-                                <h5>{flag.name.common}</h5>
+                                <h2>{flag.name.common}</h2>
                             </div>
                         );
                     })}
