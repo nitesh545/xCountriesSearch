@@ -25,9 +25,13 @@ function App() {
     };
 
     let showFilteredFlags = () => {
-        setFilteredFlags(
-            flags.filter((x) => x.name.common.includes(searchText))
-        );
+        let ff = []
+        flags.forEach((x) => {
+            let words = x.name.common.toLowerCase().split(" ");
+            let arr = words.filter((y) => y.startsWith(searchText));
+            if (arr.length > 0) { ff.push(x); }
+        });
+        setFilteredFlags(ff);
     };
 
     useEffect(() => {
@@ -40,7 +44,7 @@ function App() {
                 type="text"
                 onChange={(event) => {
                     setSearchText(event.target.value);
-                    // showFilteredFlags();
+                    showFilteredFlags();
                 }}
             ></input>
             <div
@@ -49,8 +53,8 @@ function App() {
                     flexWrap: "wrap",
                 }}
             >
-                {flags &&
-                    flags.map((flag) => {
+                {filteredFlags.length !== 0
+                    ? filteredFlags.map((flag) => {
                         return (
                             <div
                                 key={crypto.randomUUID()}
@@ -68,7 +72,28 @@ function App() {
                                 <h2>{flag.name.common}</h2>
                             </div>
                         );
-                    })}
+                    })
+                    : flags
+                        ? flags.map((flag) => {
+                            return (
+                                <div
+                                    key={crypto.randomUUID()}
+                                    className="countryCard"
+                                    style={{ padding: "0.5rem" }}
+                                >
+                                    <img
+                                        src={flag.flags.png}
+                                        alt=""
+                                        style={{
+                                            width: "100%",
+                                            verticalAlign: "middle",
+                                        }}
+                                    ></img>
+                                    <h2>{flag.name.common}</h2>
+                                </div>
+                            );
+                        })
+                        : null}
             </div>
         </div>
     );
